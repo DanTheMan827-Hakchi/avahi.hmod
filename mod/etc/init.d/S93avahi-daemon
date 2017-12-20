@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# avahi-daemon init script
+export LD_LIBRARY_PATH="/var/lib/hakchi/rootfs/lib/"
+DAEMON="/bin/avahi-daemon"
+case "$1" in
+    start)
+	adduser avahi -D -H
+	$DAEMON -c || $DAEMON -D
+	;;
+    stop)
+	$DAEMON -c && $DAEMON -k
+	deluser avahi
+	;;
+    reload)
+	$DAEMON -c && $DAEMON -r
+	;;
+    *)
+	echo "Usage: S93avahi-daemon {start|stop|reload}" >&2
+	exit 1
+	;;
+esac
