@@ -6,8 +6,8 @@ all: out/avahi-$(GIT_COMMIT).hmod
 
 out/avahi-$(GIT_COMMIT).hmod: src/avahi-0.7/avahi-daemon/.libs/avahi-daemon mod/bin/avahi-daemon mod/lib/libavahi-common.so.3.5.3 mod/lib/libavahi-core.so.7.0.2 mod/lib/libdaemon.so.0.5.0 mod/lib/libexpat.so.1.6.0
 	mkdir -p out/
-	chmod +x mod/bin/* mod/etc/init.d/* mod/lib/*
-	[ -f "out/avahi-$(GIT_COMMIT).hmod" ] || tar -czvf "out/avahi-$(GIT_COMMIT).hmod" -C mod/ etc usr bin lib
+	chmod +x mod/bin/* mod/lib/*
+	tar -czvf "$@" -C mod/ etc usr bin lib
 	touch "$@"
 	
 mod/lib/libexpat.so.1.6.0:
